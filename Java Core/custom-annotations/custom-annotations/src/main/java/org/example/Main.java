@@ -1,10 +1,28 @@
 package org.example;
 
+import org.example.model.Child2;
+import org.example.model.MyComponentClass;
+import org.example.model.SuperClass;
+import org.example.myannotations.MyAutowired;
+import org.example.myannotations.MyComponent;
+import org.example.myannotations.MyFieldAnnotation;
 import org.example.myannotations.MyFistAnnotation;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
+
+    @MyFieldAnnotation
+    private SuperClass fieldAnnotation;
+
+    @MyAutowired
+    private static MyComponentClass myComponentClass;
 
     public static void main(String[] args) {
 
@@ -39,6 +57,63 @@ public class Main {
                     e.printStackTrace();
                 }
             }
+        }
+
+        /**
+         * Inject child object to the fieldAnnotation variable.
+         */
+        Main fieldObj = new Main();
+        for (Field field : Main.class.getDeclaredFields()) {
+            if (field.isAnnotationPresent(MyFieldAnnotation.class)) {
+                try {
+                    field.set(fieldObj, new Child2());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        if (Objects.nonNull(fieldObj.fieldAnnotation)) {
+            fieldObj.fieldAnnotation.currentClass();
+        } else {
+            System.out.println("Field annotation is Null");
+        }
+
+
+        /**
+         * Implementing similar to Spring dependency inject using Java reflection.
+         * Created {@link MyAutowired} annotation to identify static fields needed to get dependency injected.
+         * Create {@link MyComponent} annotation to configure class that are candidate for the dependency injection.
+         *
+         */
+        Reflections reflections = new Reflections("org.example.",new SubTypesScanner(false));
+        Set<Class<? extends Object>> collect = reflections.getSubTypesOf(Object.class).stream().collect(Collectors.toSet());
+
+        for (Class<? extends Object> aClass : collect) {
+            if (aClass.isAnnotationPresent(MyComponent.class)) {
+                for (Class<? extends Object> aClass1 : collect) {
+                    for (Field declaredField : aClass1.getDeclaredFields()) {
+                        if (declaredField.isAnnotationPresent(MyAutowired.class)) {
+                            try {
+                                // Since the myComponent variable is a static variable
+                                declaredField.set(null, aClass.newInstance());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        if (Objects.nonNull(myComponentClass)) {
+            myComponentClass.printClassName();
+            System.out.println("Calling Main2 printMyComponentClassName method");
+            new Main2().printMyComponentClassName();
+        } else {
+            System.out.println("My component class is Null");
         }
     }
 
