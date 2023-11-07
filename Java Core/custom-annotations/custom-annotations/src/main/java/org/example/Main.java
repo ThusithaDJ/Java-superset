@@ -12,7 +12,7 @@ public class Main {
 
 
         /**
-         * Execute only the instance methods decorated with  annotation
+         * Execute only the instance methods decorated with {@link MyFistAnnotation} annotation.
          */
         Main main = new Main();
         for (Method m : main.getClass().getMethods()) {
@@ -27,7 +27,8 @@ public class Main {
 
 
         /**
-         * This will trigger both static and instance method. Because, Main.class.getDeclaredMethods() returns all the methods.
+         * This will trigger both static and instance methods decorated with {@link MyFistAnnotation} annotation.
+         * Because, Main.class.getDeclaredMethods() returns all the methods.
          * So when m.invoke(new Main()) method call, it'll first execute the static method and then execute the instance method.
          */
         for(Method m : Main.class.getDeclaredMethods()) {
