@@ -11,8 +11,6 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 F
 custom-annotations.iml,1\c\1c9b0a932ecccb0a64cd0898f4bda89ee93b8eb7
-q
-Asrc/main/java/org/example/myannotations/MyInstanceAnnotation.java,9\6\960e74a630970615744c74850c35667fac76229a
 n
 >src/main/java/org/example/myannotations/MyFieldAnnotation.java,f\4\f4dc110f12f308520347cfe2926c7f486511a752
 _
@@ -29,3 +27,5 @@ e
 5src/main/java/org/example/model/MyComponentClass.java,8\8\88d2701f9a446835031e88c0e0de77a08ee01f33
 T
 $src/main/java/org/example/Main2.java,8\2\82da1d8cfd4242b8eceb3f51bf94ef24398d7267
+^
+.src/main/java/org/example/override/Bigram.java,1\e\1e3405ddf766399a595db8a4cdd2fd6f435e0c52
