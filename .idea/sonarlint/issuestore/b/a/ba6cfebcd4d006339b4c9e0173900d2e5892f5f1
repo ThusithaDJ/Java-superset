@@ -1,0 +1,7 @@
+
+f
+java:S1206"PThis class overrides "hashCode()" and should therefore also override "equals()".(ğÜşŠ
+p
+java:S1201"UEither override Object.equals(Object), or rename the method to prevent any confusion.(ãÍıùÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(ôƒ˜…
+?	java:S106("+Replace this use of System.out by a logger.(©Èáj

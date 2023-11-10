@@ -1,0 +1,11 @@
+
+R
+java:S1854"7Remove this useless assignment to local variable "map".(â×Œèýÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(Ô¼´ó
+C
+java:S1481"(Remove this unused "map" local variable.(â×Œèýÿÿÿÿ
+@	java:S106"+Replace this use of System.out by a logger.(ÂÛá
+G
+java:S1197",Move the array designators [][] to the type.(ÁïÀ°üÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(±½œú
+C	java:S108%")Either remove or fill this block of code.(Êšãðúÿÿÿÿ

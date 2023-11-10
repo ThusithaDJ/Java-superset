@@ -1,17 +1,0 @@
-
-o
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(Çµí‘8º†¸Ûº1
-L	java:S106"+Replace this use of System.out by a logger.(‚ŞÏ¥ıÿÿÿÿ8»†¸Ûº1
-N
-java:S3011E",This accessibility bypass should be removed.(ÉŒ»Íÿÿÿÿÿ8½†¸Ûº1
-G	java:S106P"+Replace this use of System.out by a logger.(¡ªÆ8½†¸Ûº1
-T
-java:S1874Z"7Remove this use of "SubTypesScanner"; it is deprecated.(—‰Õ¹8À†¸Ûº1
-I
-java:S3011d",This accessibility bypass should be removed.(ôóø»8Á†¸Ûº1
-P
-java:S1874d"3Remove this use of "newInstance"; it is deprecated.(ôóø»8Á†¸Ûº1
-L	java:S106q"+Replace this use of System.out by a logger.(–èˆ¡şÿÿÿÿ8Â†¸Ûº1
-G	java:S106t"+Replace this use of System.out by a logger.(Ñï ‹8Â†¸Ûº1
-G	java:S106z"+Replace this use of System.out by a logger.(€ĞœÒ8Ã†¸Ûº1
-L	java:S106"+Replace this use of System.out by a logger.(Ÿé—£şÿÿÿÿ8Ã†¸Ûº1
