@@ -1,41 +1,38 @@
 package finalkeyword;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-//        final FinalObject obj = new FinalObject("name", 22);
-//        System.out.println(obj);
-//
-//        try {
-//            System.out.println("try");
-//            return;
-//        } finally {
-//            System.out.println("finally");
-//        }
-        Integer val = Integer.valueOf(10);
-        String s2 = "Strring";
-        String s1 = "S1";
-        String s3 = s2 + s1;
+        FinalObject obj = new FinalObject("name", 22);
+        System.out.println(obj);
 
-        Map<Integer, String> map = new HashMap<>();
+    }
 
-        System.out.println("checking memory" + val + s3);
 
-        int arr[][] = new int[][]{{0,1,0}, {1,1,0}, {1,0,1}};
-//        Map<Integer, Integer> collect = Arrays.stream(arr).collect(Collectors.toMap(x -> x[0], x -> x[1], (oldV, newV) -> newV));
-//        collect.forEach((k,v) -> System.out.println(k +"->"+v));
+    /**
+     * The compiler with will give a 'cannot inherit from final FinalObject' compile time exception. Since the FinalObject
+     * class is an immutable object since it has the final keyword.
+     */
+    /*
+    class ChildOfFinalObject extends FinalObject {
 
-        Map<Integer, int[]> vl = new HashMap<>();
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                vl.put(i, arr[i]);
-            }
-        }
-
-        for (int i = 0; i < vl.size(); i++) {
-
+        *//**
+         * Since FinalObject do not have a default constructor it is necessory to implement a parameterized constructor.
+         * Why?
+         *      Since in java when we extend a class, when it's initializing it call super classes constructor all
+         *      upto object class to initialize the lowest child class.
+         *      Since the FinalObject class do not have a default constructor in ChildOfFinalObject need to implement the parameterized constructor.
+         * @param name
+         * @param age
+         *//*
+        public ChildOfFinalObject(String name, int age) {
+            super(name, age);
         }
     }
+    */
+
 }
