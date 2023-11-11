@@ -1,12 +1,16 @@
 
-G	java:S106"+Replace this use of System.out by a logger.(Áªø8¼Êƒõ»1
-X	java:S125"<This block of commented-out lines of code should be removed.(ÕÑ¬¼8œá±õ»1
-W	java:S125 "<This block of commented-out lines of code should be removed.(¬çŞL8œá±õ»1
+r	java:S114="QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(éÍĞ›úÿÿÿÿ8¤Åæõ»1
+G	java:S106"+Replace this use of System.out by a logger.(Áªø8¨Åæõ»1
+X	java:S125"<This block of commented-out lines of code should be removed.(ÕÑ¬¼8¨Åæõ»1
+W	java:S125""<This block of commented-out lines of code should be removed.(¬çŞL8¨Åæõ»1
+G	java:S106,"+Replace this use of System.out by a logger.(Î¶Ôá8©Åæõ»1
+X	java:S1258"<This block of commented-out lines of code should be removed.(íÅÊ8©Åæõ»1
+]	java:S125D"<This block of commented-out lines of code should be removed.(Æ‘ÆÃüÿÿÿÿ8©Åæõ»1
 O
-java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8¶­”õ»1
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8‘‡çõ»1
 P
-java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8¶­”õ»1
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8‘‡çõ»1
 L
-java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8·­”õ»1
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8‘‡çõ»1
 Z
-java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8·­”õ»1
+java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8‘‡çõ»1
