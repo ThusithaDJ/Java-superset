@@ -60,3 +60,9 @@ b
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+O
+src/main/java/package-info.java,a\d\ad9bd4ccb9214167b95b4784e2edb54e4279f19e
+O
+src/main/java/enums/Planet.java,6\a\6a099c8c14c19b8794f329e5faee055d80a099ce
+T
+$src/main/java/enums/WeightTable.java,f\1\f171be34c81348363e847d63fcaad68afbad055a
