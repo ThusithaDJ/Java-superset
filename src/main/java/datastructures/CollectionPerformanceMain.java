@@ -16,40 +16,65 @@ public class CollectionPerformanceMain {
 
     public static void main(String[] args) {
 
-        int count = 1000000;
+        int count = 500000;
 
-        List<String> stringList = addToAnArrayList(count);
-        emptyTheList(stringList);
+        List<String> randomRemoveArrayList = addToAnArrayList(count);
+        List<String> sequantialRemoveArrayList = new ArrayList<>(randomRemoveArrayList);
 
-        stringList = addToAnLinkedList(count);
-        emptyTheList(stringList);
+        List<String> randomRemoveLinkedList = addToAnLinkedList(count);
+        List<String> sequantialRemoveLinkedList = new LinkedList<>(randomRemoveLinkedList);
 
+        findValueFromArrayList(randomRemoveArrayList);
+        findValueFromLinkedList(randomRemoveLinkedList);
+
+        randomlyEmptyTheList(randomRemoveArrayList);
+        sequantiallyEmptyTheList(sequantialRemoveArrayList);
+
+        randomlyEmptyTheList(randomRemoveLinkedList);
+        sequantiallyEmptyTheList(sequantialRemoveLinkedList);
+
+    }
+
+    private static void findValueFromLinkedList(List<String> randomRemoveLinkedList) {
+        String s;
+        Instant start;
+        randomRemoveLinkedList.add("TheLastWordForLinkedList");
+        start = Instant.now();
+        s = randomRemoveLinkedList.stream().filter(v -> v.equals("TheLastWordForLinkedList")).findFirst().orElse("Didn't find");
+        logger.log(Level.INFO, "????????????????????????????????? Found the value from LinkedList {0}. Time {1}", List.of(s, Duration.between(start, Instant.now())).toArray());
+    }
+
+    private static void findValueFromArrayList(List<String> randomRemoveArrayList) {
+        randomRemoveArrayList.add("TheLastWordForArrayList");
+        Instant start = Instant.now();
+        String s = randomRemoveArrayList.stream().filter(v -> v.equals("TheLastWordForArrayList")).findFirst().orElse("Didn't find");
+        logger.log(Level.INFO, "????????????????????????????????? Found the value from ArrayList {0}. Time {1}", List.of(s, Duration.between(start, Instant.now())).toArray());
     }
 
     public static List<String> addToAnArrayList(int count) {
-        logger.log(Level.INFO,"Starting to generate random words and adding to a list: {0}",  count);
-        return getStrings(count, new ArrayList<>());
+        logger.log(Level.INFO,"Starting to generate random words and adding to {0}: {1}", List.of("an ArrayList", count).toArray());
+        return getStringList(count, new ArrayList<>());
     }
 
     public static List<String> addToAnLinkedList(int count) {
-        logger.log(Level.INFO,"Starting to generate random words and adding to a list: {0}",  count);
-        return getStrings(count, new LinkedList<>());
+        logger.log(Level.INFO,"Starting to generate random words and adding to a {0} list: {1}",  List.of("a LinkedList", count).toArray());
+        return getStringList(count, new LinkedList<>());
     }
 
-    private static List<String> getStrings(int count, List<String> stringList) {
+    private static List<String> getStringList(int count, List<String> stringList) {
         Instant start = Instant.now();
         for (int step = 0; step <= count; step++) {
             stringList.add(generateRandomWord());
         }
 
-        Object[] ob = {count, Duration.between(start, Instant.now())};
-        logger.log(Level.INFO, "Completed generating random words and adding to a list: {0} Time: {1}", ob);
+
+        logger.log(Level.INFO, "+++++++++++++++++++++++++++++++ Completed generating random words and adding to a {0}: {1} Time: {2}", List.of(stringList.getClass().getName(), count, Duration.between(start, Instant.now())).toArray());
 
         return stringList;
     }
 
-    private static void emptyTheList(List<String> stringList) {
-        logger.log(Level.INFO, "Started to empty the list: {0}", stringList.size());
+    private static void randomlyEmptyTheList(List<String> stringList) {
+        logger.log(Level.INFO, "Started to empty the {0} : {1}", List.of(stringList.getClass().getName(), stringList.size()).toArray());
 
         Instant start = Instant.now();
         int listSize = stringList.size();
@@ -59,8 +84,21 @@ public class CollectionPerformanceMain {
             listSize = stringList.size();
         }
 
-        Object[] ob = {stringList.size(), Duration.between(start, Instant.now())};
-        logger.log(Level.INFO, "Completed emptying the list: {0} Time: {1}", ob);
+        logger.log(Level.INFO, "-------------------------------- Completed emptying the {0}: {1} Time: {2}", List.of(stringList.getClass().getName(), stringList.size(), Duration.between(start, Instant.now())).toArray());
+    }
+
+    private static void sequantiallyEmptyTheList(List<String> stringList) {
+        logger.log(Level.INFO, "Started to empty the {0} : {1}", List.of(stringList.getClass().getName(), stringList.size()).toArray());
+
+        Instant start = Instant.now();
+        int listSize = stringList.size();
+        while (listSize > 0) {
+            stringList.remove(0);
+            listSize = stringList.size();
+        }
+
+        logger.log(Level.INFO, "-------------------------------- Completed emptying the {0}: {1} Time: {2}", List.of(stringList.getClass().getName(), stringList.size(), Duration.between(start, Instant.now())).toArray());
+
     }
 
     private static String generateRandomWord() {
