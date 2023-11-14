@@ -12,6 +12,7 @@ repositories {
 dependencies {
 
     implementation 'org.hibernate:hibernate-validator:6.0.10.Final'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.13.0'
     implementation group: 'org.reflections', name: 'reflections', version: '0.10.2'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
