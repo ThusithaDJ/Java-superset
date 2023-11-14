@@ -3,10 +3,16 @@ package datastructures;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CollectionPerformanceMain {
+
+    private static final Random random = new Random();
+    private static final Logger logger = Logger.getLogger(CollectionPerformanceMain.class.getName());
 
     public static void main(String[] args) {
 
@@ -15,39 +21,50 @@ public class CollectionPerformanceMain {
         List<String> stringList = addToAnArrayList(count);
         emptyTheList(stringList);
 
+        stringList = addToAnLinkedList(count);
+        emptyTheList(stringList);
+
     }
 
     public static List<String> addToAnArrayList(int count) {
-        System.out.println("Starting to generate random words and adding to a list:" + count);
+        logger.log(Level.INFO,"Starting to generate random words and adding to a list: {0}",  count);
+        return getStrings(count, new ArrayList<>());
+    }
 
-        List<String> stringList = new ArrayList<>();
+    public static List<String> addToAnLinkedList(int count) {
+        logger.log(Level.INFO,"Starting to generate random words and adding to a list: {0}",  count);
+        return getStrings(count, new LinkedList<>());
+    }
+
+    private static List<String> getStrings(int count, List<String> stringList) {
         Instant start = Instant.now();
         for (int step = 0; step <= count; step++) {
             stringList.add(generateRandomWord());
         }
 
-        System.out.println("Completed generating random words and adding to a list:" + count +" Time: "+ Duration.between(start, Instant.now()));
+        Object[] ob = {count, Duration.between(start, Instant.now())};
+        logger.log(Level.INFO, "Completed generating random words and adding to a list: {0} Time: {1}", ob);
 
         return stringList;
     }
 
     private static void emptyTheList(List<String> stringList) {
-        System.out.println("Started to empty the list: " + stringList.size());
+        logger.log(Level.INFO, "Started to empty the list: {0}", stringList.size());
 
         Instant start = Instant.now();
         int listSize = stringList.size();
         while (listSize > 0) {
-            int index = new Random().nextInt(listSize);
+            int index = random.nextInt(listSize);
             stringList.remove(index);
             listSize = stringList.size();
         }
 
-        System.out.println("Completed emptying the list: " + stringList.size() +" Time: " + Duration.between(start, Instant.now()));
+        Object[] ob = {stringList.size(), Duration.between(start, Instant.now())};
+        logger.log(Level.INFO, "Completed emptying the list: {0} Time: {1}", ob);
     }
 
     private static String generateRandomWord() {
         String characters = "abcdefghijklmnopqrstuvwxyz";
-        Random random = new Random();
 
         // Generate a random word length between 1 and 10
         int wordLength = random.nextInt(10) + 1;
