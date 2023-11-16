@@ -1,22 +1,26 @@
 package datastructures;
 
+import org.apache.log4j.Logger;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Vector;
 
-public class CollectionPerformanceMain {
+public class ListsPerformanceMain {
 
     private static final Random random = new Random();
-    private static final Logger logger = Logger.getLogger(CollectionPerformanceMain.class.getName());
+    private static final Logger logger = Logger.getLogger(ListsPerformanceMain.class);
 
+    private static final Map<String, String> actionSummary = new HashMap<>();
     public static void main(String[] args) {
 
-        int count = 500000;
+        int count = 100;
 
         List<String> randomRemoveArrayList = addToAnArrayList(count);
         List<String> sequantialRemoveArrayList = new ArrayList<>(randomRemoveArrayList);
@@ -24,15 +28,28 @@ public class CollectionPerformanceMain {
         List<String> randomRemoveLinkedList = addToAnLinkedList(count);
         List<String> sequantialRemoveLinkedList = new LinkedList<>(randomRemoveLinkedList);
 
+        List<String> randomRemoveVector = addToAVector(count);
+
         findValueFromArrayList(randomRemoveArrayList);
         findValueFromLinkedList(randomRemoveLinkedList);
 
         randomlyEmptyTheList(randomRemoveArrayList);
-        sequantiallyEmptyTheList(sequantialRemoveArrayList);
+        sequentiallyEmptyTheList(sequantialRemoveArrayList);
 
         randomlyEmptyTheList(randomRemoveLinkedList);
-        sequantiallyEmptyTheList(sequantialRemoveLinkedList);
+        sequentiallyEmptyTheList(sequantialRemoveLinkedList);
 
+        randomlyEmptyTheList(randomRemoveVector);
+        sequentiallyEmptyTheList(randomRemoveVector);
+
+
+        actionSummary.forEach((k, v) -> {
+            System.out.println( "| "+k +" \t | "+v +" |");
+        });
+    }
+
+    private static List<String> addToAVector(int count) {
+        return getStringList(count, new Vector<>());
     }
 
     private static void findValueFromLinkedList(List<String> randomRemoveLinkedList) {
@@ -41,23 +58,22 @@ public class CollectionPerformanceMain {
         randomRemoveLinkedList.add("TheLastWordForLinkedList");
         start = Instant.now();
         s = randomRemoveLinkedList.stream().filter(v -> v.equals("TheLastWordForLinkedList")).findFirst().orElse("Didn't find");
-        logger.log(Level.INFO, "????????????????????????????????? Found the value from LinkedList {0}. Time {1}", List.of(s, Duration.between(start, Instant.now())).toArray());
+
+        actionSummary.put("Find\t\t\t\t\t| "+randomRemoveLinkedList.getClass().getName().replace("java.util.", ""), "\t | "+Duration.between(start, Instant.now()));
     }
 
     private static void findValueFromArrayList(List<String> randomRemoveArrayList) {
         randomRemoveArrayList.add("TheLastWordForArrayList");
         Instant start = Instant.now();
         String s = randomRemoveArrayList.stream().filter(v -> v.equals("TheLastWordForArrayList")).findFirst().orElse("Didn't find");
-        logger.log(Level.INFO, "????????????????????????????????? Found the value from ArrayList {0}. Time {1}", List.of(s, Duration.between(start, Instant.now())).toArray());
+        actionSummary.put("Find\t\t\t\t\t| "+randomRemoveArrayList.getClass().getName().replace("java.util.", ""), "\t | "+Duration.between(start, Instant.now()));
     }
 
     public static List<String> addToAnArrayList(int count) {
-        logger.log(Level.INFO,"Starting to generate random words and adding to {0}: {1}", List.of("an ArrayList", count).toArray());
         return getStringList(count, new ArrayList<>());
     }
 
     public static List<String> addToAnLinkedList(int count) {
-        logger.log(Level.INFO,"Starting to generate random words and adding to a {0} list: {1}",  List.of("a LinkedList", count).toArray());
         return getStringList(count, new LinkedList<>());
     }
 
@@ -67,15 +83,11 @@ public class CollectionPerformanceMain {
             stringList.add(generateRandomWord());
         }
 
-
-        logger.log(Level.INFO, "+++++++++++++++++++++++++++++++ Completed generating random words and adding to a {0}: {1} Time: {2}", List.of(stringList.getClass().getName(), count, Duration.between(start, Instant.now())).toArray());
-
+        actionSummary.put("Random Add\t\t\t| "+stringList.getClass().getName().replace("java.util.", ""), "\t | "+ Duration.between(start, Instant.now()));
         return stringList;
     }
 
     private static void randomlyEmptyTheList(List<String> stringList) {
-        logger.log(Level.INFO, "Started to empty the {0} : {1}", List.of(stringList.getClass().getName(), stringList.size()).toArray());
-
         Instant start = Instant.now();
         int listSize = stringList.size();
         while (listSize > 0) {
@@ -84,12 +96,13 @@ public class CollectionPerformanceMain {
             listSize = stringList.size();
         }
 
-        logger.log(Level.INFO, "-------------------------------- Completed emptying the {0}: {1} Time: {2}", List.of(stringList.getClass().getName(), stringList.size(), Duration.between(start, Instant.now())).toArray());
+        String className = stringList.getClass().getName().replace("java.util.", "");
+        className = className.equals("Vector") ? "Vector\t" :className;
+
+        actionSummary.put("Random remove\t\t\t| "+className, "\t | "+Duration.between(start, Instant.now()));
     }
 
-    private static void sequantiallyEmptyTheList(List<String> stringList) {
-        logger.log(Level.INFO, "Started to empty the {0} : {1}", List.of(stringList.getClass().getName(), stringList.size()).toArray());
-
+    private static void sequentiallyEmptyTheList(List<String> stringList) {
         Instant start = Instant.now();
         int listSize = stringList.size();
         while (listSize > 0) {
@@ -97,8 +110,7 @@ public class CollectionPerformanceMain {
             listSize = stringList.size();
         }
 
-        logger.log(Level.INFO, "-------------------------------- Completed emptying the {0}: {1} Time: {2}", List.of(stringList.getClass().getName(), stringList.size(), Duration.between(start, Instant.now())).toArray());
-
+        actionSummary.put("Sequentially remove\t| "+stringList.getClass().getName().replace("java.util.", ""), "\t | "+Duration.between(start, Instant.now()));
     }
 
     private static String generateRandomWord() {
