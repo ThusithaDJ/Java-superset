@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -21,11 +22,17 @@ public class MapPerformanceMain {
         getStringMap(count, hashMap);
         randomlyEmptyTheMap(hashMap);
 
-        count = 1000000;
+        count = 10000000;
         hashMap = new HashMap<>();
 
         getStringMap(count, hashMap);
         randomlyEmptyTheMap(hashMap);
+
+        Map<String, String> hashtable = new Hashtable<>();
+
+        count = 10000000;
+        getStringMap(count, hashtable);
+        randomlyEmptyTheMap(hashtable);
 
         actionSummary.forEach(v -> System.out.println( "| "+v +" |"));
     }
